@@ -1,0 +1,98 @@
+# Lines that start with '#' are comments.
+
+# Write debugging information to a file.
+#logfile = ~/i3barfodder.log
+
+# Display the number of i3bar updates per second.
+#show_updates = true
+
+# You can manually set any of the variables specified in the i3bar protocol
+# (http://i3wm.org/docs/i3bar-protocol.html#_blocks_in_detail), but workers
+# can override settings made in the config file.
+# Settings made above the first section apply to all sections.
+separator = false
+separator_block_width = 30
+
+# In the sections below, lowercase settings are part of the i3bar protocol or
+# i3barfodder's extensions.  Uppercase settings are simply environment
+# variables that are set for worker commands to read.  They don't have to be
+# uppercase, but it makes them easier to distinguish.
+
+# Display the number of new packages if there are any.
+#[package updates]
+#command = i3bf-pkgmgr
+#PKGMGR = apt
+#color = #EE4C74
+
+# Display the number of new mails if there are any.
+#[new mail]
+#command = i3bf-mail
+#ACCOUNT = maildir:~/.mail/inbox
+#color = #F3E5AB
+
+# CPU temperature
+# These settings display a bar that starts to grow at 40° and maxes out at
+# 50°.  It's updated every 10 seconds and displays the current temperature as
+# a number if it is 45° or higher (DISPLAY_MIN).  Overriding the global
+# "separator_block_width" moves everything closer to the next, related
+# section.
+#[cpu temperature]
+#command = i3bf-temperature
+#SENSOR_PATH = /sys/class/hwmon/hwmon1/device/temp1_input
+#TEMP_RANGE = 40-50
+#INTERVAL = 10
+#DISPLAY_MIN = 50%
+#separator_block_width = 10
+
+# CPU usage
+# By default, i3bf-cpu displays a single vertical bar and a percentage to
+# indicate overall CPU usage.  In this example, PERCORE is enabled to display
+# one bar+percentage per core.  Because LAYOUT is used for each core, that
+# would look cluttered and is therefore redefined to display a single block
+# that displays only a vertical bar in a dynamic color with
+# "separator_block_with" set to 2.
+[cpu core usage]
+command = i3bf-cpu
+PERCORE = yes
+LAYOUT = [vbar({_percent})|{_percent}:#04B-#29F-#8DF]2
+
+# Network throughput
+# The default layout displays a vertical bar for each direction (up and down),
+# and the current transfer rate as a number if it is larger than 10% of the
+# maximum rate.
+# SCALE is set to "sqrt" to put more emphasis on smaller values; i.e. the
+# vertical bar should reach half of its full height at 25% capacity.
+[netload]
+command = i3bf-net
+BANDWIDTH_UP = 1 Mb
+BANDWIDTH_DOWN = 8 Mb
+SCALE = sqrt
+
+# Storage I/O and usage
+# This section displays "/home" and any mountpoint that starts with "/media/".
+# Alternatively, you can specify a blacklist of mountpoints that should not be
+# displayed.  In that case, you would have to remove WHITELIST because it
+# takes precedence.  PERMALIST lists mountpoints that are displayed even if
+# they are not mounted.
+[storage]
+command = i3bf-storage
+WHITELIST = /home,/media/*
+#BLACKLIST = /,/boot
+PERMALIST = /storage
+
+# Time and date
+# DATE_FORMAT configures how the date is displayed (see date(1)).  By setting
+# the LANG environment variable, weekday names and such are displayed in
+# German even though the default language of my system is English.  If any of
+# the ALARMDATES are within the next few dates, an indicator is displayed as a
+# reminder.
+[time/date]
+command = i3bf-timedate
+DATE_FORMAT = %A, %d. %B %Y
+LANG = en_US.UTF-8
+DATE_COLOR = #99c
+TIME_COLOR = #7c9
+ALARMDATES = 12-24; 2016-03-27;
+ALARMDATES += New Year's Day; Labour Day; Day of German Unity;
+ALARMDATES += Good Friday; Easter Monday; Ascension; Whit Monday;
+ALARMDATES += Christmas; St. Stephen's Day
