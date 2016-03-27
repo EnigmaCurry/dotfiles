@@ -1,6 +1,10 @@
 set $mod Mod4
 
-font pango:monospace 8
+################################################################################
+###
+### Boring default(ish) settings:
+### 
+################################################################################
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -75,22 +79,6 @@ bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
-bindsym Mod1+Control+Left workspace prev_on_output
-bindsym Mod1+Control+Right workspace next_on_output
-
-# Quickswitch! aur: quickswitch-i3
-bindsym $mod+q exec quickswitch.py
-# Move current window to other output:
-bindsym $mod+x move to output right
-# Move current workspace to other output
-bindsym $mod+Shift+x move workspace to output right
-# Mark the current window for moving somewhere else
-bindsym $mod+m mark "moving"
-# Move the currently marked window to the current workspace:
-bindsym $mod+Shift+m [con_mark="moving"] move window to workspace current
-
-# Move current window to workspace specified by dmenu?
-bindsym $mod+Shift+w exec 
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
@@ -103,6 +91,7 @@ bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
+
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -136,6 +125,39 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
+
+
+################################################################################
+###
+### Custom stuff starts here
+###
+################################################################################
+
+font pango:monospace 8
+
+# Switch to next and previous workspace:
+# (Gnome bindings are deep ingrained)
+bindsym Mod1+Control+Left workspace prev_on_output
+bindsym Mod1+Control+Right workspace next_on_output
+
+# Move current window to other output:
+bindsym $mod+x move to output right
+# Move current workspace to other output
+bindsym $mod+Shift+x move workspace to output right
+# Mark the current window for moving somewhere else
+bindsym $mod+m mark "moving"
+# Move the currently marked window to the current workspace:
+bindsym $mod+Shift+m [con_mark="moving"] move window to workspace current
+# move firefox to current workspace
+bindsym $mod+F1 [class="chromium"] move workspace current
+
+# Quickswitch! aur: quickswitch-i3
+# Find window by name:
+bindsym $mod+q exec quickswitch.py
+# Move current window to workspace, specified by dmenu
+bindsym $mod+Shift+w exec "python -c \\"import i3; [print('{}'.format(w['name'])) for w in i3.get_workspaces()]\\" | dmenu -l 10 -p \\"Move container to workspace:\\" | xargs -iXX i3 move container to workspace XX"
+# Rename current workspace
+bindsym $mod+Mod1+w exec echo "" | dmenu -p "Rename workspace to:" | xargs -iXX i3 rename workspace to XX
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
