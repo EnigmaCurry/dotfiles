@@ -1,2 +1,4 @@
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
-eval $(keychain --eval --quiet id_rsa)
+if (! ssh-add -l 2>&1 | grep id_rsa > /dev/null); then
+    ssh-add
+fi
