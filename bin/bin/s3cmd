@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# s3cmd-gpg
+# Thanks to https://github.com/brandur/org/blob/master/fragments/gpg-s3cmd.md
+
+eval `gpg -q -d ~/.aws_credentials.gpg`
+export AWS_ACCESS_KEY_ID
+export AWS_SECRET_KEY
+
+/usr/bin/s3cmd "$@"
