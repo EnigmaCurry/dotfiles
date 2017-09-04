@@ -1,2 +1,2 @@
-pacman --noconfirm --needed -S git emacs openssh gnupg xorg-server xorg-apps xf86-video-intel xorg-xinit mesa i3-wm rxvt-unicode dmenu chromium
+pacman --noconfirm --needed -S base-devel wpa_supplicant iw dialog git emacs openssh gnupg xorg-server xorg-apps xf86-video-intel xf86-input-synaptics xorg-xinit mesa i3-wm rxvt-unicode dmenu chromium ttf-ubuntu-font-family python python-pip jdk8-openjdk pandoc i3status i3lock keychain pulseaudio pulseaudio-gconf paprefs pavucontrol pamixer pulseaudio-equalizer pulseaudio-bluetooth pulseaudio-zeroconf alsa-utils
 

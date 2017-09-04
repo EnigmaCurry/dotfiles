@@ -221,3 +221,12 @@ bindsym XF86AudioPrev exec mpc prev
 #for_window [title="ncmpc"] floating enable
 #for_window [title="Luminous Caves"] floating enable
 
+########################################
+### Touchpad
+########################################
+
+exec synclient PalmDetect=1
+exec synclient TapButton1=1
+exec synclient TapButton2=3
+exec synclient VertScrollDelta=-116
+exec synclient HorizScrollDelta=-116

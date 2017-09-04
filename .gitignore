@@ -2,3 +2,10 @@
 **/#*
 **/.#*
 ssh/.ssh/known_hosts*
+
+
+aur/**/*.gz
+aur/**/*.xz
+aur/**/*.sig
+aur/**/pkg
+aur/**/src
