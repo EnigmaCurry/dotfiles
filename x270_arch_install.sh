@@ -1,28 +1,28 @@
 # Make config changes here:
 # Hostname
-export HOSTNAME=aurelius
+HOSTNAME=aurelius
 # The hard drive device name:
-export HDD=nvme0n1
+HDD=nvme0n1
 # The EFI partition
-export EFI_PART=nvme0n1p1
+EFI_PART=nvme0n1p1
 # The partition to store the encrypted boot:
-export CRYPT_BOOT=nvme0n1p2
+CRYPT_BOOT=nvme0n1p2
 # The partition to store the encrypted LVM:
-export CRYPT_ROOT=nvme0n1p3
+CRYPT_ROOT=nvme0n1p3
 # Volume sizes:
-export SWAP_SIZE=16G
+SWAP_SIZE=16G
 # Password to encrypt device with:
-export CRYPT_PASS=hunter2
+CRYPT_PASS=hunter2
 # Root password:
-export ROOT_PASS=root
+ROOT_PASS=root
 # Time zone
-export TIME_ZONE=America/New_York
+TIME_ZONE=America/New_York
 # Locale
-export LOCALE="en_US.UTF-8 UTF-8"
-export LANG="en_US.UTF-8"
+LOCALE="en_US.UTF-8 UTF-8"
+LANG="en_US.UTF-8"
 # Arch mirror:
 # This uses lazy-distro-mirrors from https://github.com/EnigmaCurry/lazy-distro-mirrors
-export ARCH_MIRROR='http://kernel-mirror:8080/archlinux/$repo/os/$arch'
+ARCH_MIRROR='http://kernel-mirror:8080/archlinux/$repo/os/$arch'
 
 init() {
     timedatectl set-ntp true
