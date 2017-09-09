@@ -1,0 +1,36 @@
+* 80/20 automated Arch Linux install scripts
+
+/This is a work in progress./
+
+This is my new Arch Linux installer and dot files. In the past I've tried to make a 100% automated installer script, but Arch Linux tends to have problems when you automate /everything/. Some tasks are best left manual. So this is a new approach that automates most things, but leaves the initial install process to be only semi-automated.
+
+** Stages
+*** Install
+    See [[x270_arch_install.sh]] for an example. 
+**** Boot the Arch Linux iso image
+**** Start SSH and set the (temporary) root password to 'root'
+     #+BEGIN_SRC bash
+pacman -Sy
+pacman -S openssh
+systemctl start sshd
+echo root:root | chpasswd
+     #+END_SRC
+**** Edit the install script and change any configuration parameters
+**** scp the install script to the new host.
+**** Start the install:
+Once you have the install script on the new host, source the file:
+
+#+BEGIN_SRC bash
+source x270_arch_install.sh
+#+END_SRC
+
+The script then outputs the next commands to run to finish the installation.
+**** Change encryption key passphrase:
+The script encrypts the boot and root partitions. I usually just leave the default passphrase untouched in the script (hunter2) and then I change the passphrase manually later. This way I don't have to worry about keeping the install script safe.
+
+See https://wiki.archlinux.org/index.php/Dm-crypt/Device_encryption#Key_management
+
+You need to ADD a new Key slot 1 with a new passphrase and then REMOVE Key slot 0 (the one set to hunter2.) 
+
+*** Config
+config.sh should be run from the new user account once installation is finished. This script will perform all post-install steps including installing additional packages, setting up systemd services, and installing the dot files into the user HOME directory. You can run config.sh as many times or as often as necessary. Whenever you make changes to any of the config files in this repository, you should rerun config.sh to apply them to your system.

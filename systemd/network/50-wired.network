@@ -1,0 +1,19 @@
+# https://wiki.archlinux.org/index.php/Systemd-networkd
+
+[Match]
+Name=en*
+#  Optional - specify mac address matching
+#MACAddress=00:00:00:00:00:00
+
+[Link]
+#  Optional - MAC address spoofing
+#MACAddress=00:00:00:00:00:00
+
+[Network]
+DHCP=ipv4
+#  Optional - rename the device (needs MAC filter above)
+#Name=eth0
+
+[DHCP]
+# lower numbered RouteMetric prefers this route over other active routes with higher RouteMetric values
+RouteMetric=10

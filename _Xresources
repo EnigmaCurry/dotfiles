@@ -1,6 +1,6 @@
 URxvt.intensityStyles: false
-! URxvt.font: xft:monaco:size=10
-URxvt.font: 9x15
+URxvt.font: xft:UbuntuMono:size=26
+! URxvt.font: 9x15
 
 ! Base16 Eighties
 ! Scheme: Chris Kempson (http://chriskempson.com)

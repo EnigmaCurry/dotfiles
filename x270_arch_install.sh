@@ -1,35 +1,43 @@
+#!/bin/bash
+[[ $0 != "$BASH_SOURCE" ]] && sourced=1 || sourced=0
+if [ $sourced == 0 ]; then
+    echo "Don't run this script. Source it."
+    exit 1
+fi
+
 # Make config changes here:
 # Hostname
-HOSTNAME=aurelius
+export HOSTNAME=aurelius
 # The hard drive device name:
-HDD=nvme0n1
+export HDD=nvme0n1
 # The EFI partition
-EFI_PART=nvme0n1p1
+export EFI_PART=nvme0n1p1
 # The partition to store the encrypted boot:
-CRYPT_BOOT=nvme0n1p2
+export CRYPT_BOOT=nvme0n1p2
 # The partition to store the encrypted LVM:
-CRYPT_ROOT=nvme0n1p3
+export CRYPT_ROOT=nvme0n1p3
 # Volume sizes:
-SWAP_SIZE=16G
-# Password to encrypt device with:
-CRYPT_PASS=hunter2
+export SWAP_SIZE=16G
+# Password to encrypt device with.
+# Recommended to keep this simple and then change it post-install.
+# https://wiki.archlinux.org/index.php/Dm-crypt/Device_encryption#Key_management
+export CRYPT_PASS=hunter2
 # Root password:
-ROOT_PASS=root
+export ROOT_PASS=root
 # Time zone
-TIME_ZONE=America/New_York
+export TIME_ZONE=America/New_York
 # Locale
-LOCALE="en_US.UTF-8 UTF-8"
-LANG="en_US.UTF-8"
+export LOCALE="en_US.UTF-8 UTF-8"
+export LANG="en_US.UTF-8"
 # Arch mirror:
-# This uses lazy-distro-mirrors from https://github.com/EnigmaCurry/lazy-distro-mirrors
-ARCH_MIRROR='http://kernel-mirror:8080/archlinux/$repo/os/$arch'
+export ARCH_MIRROR='http://mirror.cs.vt.edu/pub/ArchLinux/$repo/os/$arch'
 
 init() {
     timedatectl set-ntp true
 }
 
 block_dev() {
-dd if=/dev/zero of=/dev/$HDD bs=1M count=1
+    dd if=/dev/zero of=/dev/$HDD bs=1M count=1
 cat <<END | parted /dev/$HDD
 mklabel gpt
 mkpart ESP fat32 1MiB 513MiB
@@ -108,16 +116,15 @@ EOF
 }
 
 
-main() {
-    init
-    block_dev
-    luks_dev
-    lvm
-    boot_dev
-    install
-    config
-    grub
-}
-
-#main
-
+echo "Installer ready."
+echo "Run the following commands in order. Look for errors!"
+echo "  init"
+echo "  block_dev"
+echo "  luks_dev"
+echo "  lvm"
+echo "  boot_dev"
+echo "  install"
+echo "  config"
+echo "  grub"
+echo ""
+echo "Don't forget to change your LUKS encryption passphrase later."
