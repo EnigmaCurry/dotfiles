@@ -1,0 +1,6 @@
+# DEBUG:
+# DEVPATH=="/devices/pci0000:00/0000:00:02.0/drm/card0/card0-DP-4", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/ryan/.Xauthority", RUN+="/bin/sh -c 'echo == >> /home/ryan/udev-env.txt; env >> /home/ryan/udev-env.txt'"
+
+# Dock and Undock scripts:
+ACTION=="add", DEVPATH=="/devices/pci0000:00/0000:00:02.0/drm/card0/card0-DP-4", RUN+="/bin/su ryan -c /home/ryan/bin/dock"
+ACTION=="remove", DEVPATH=="/devices/pci0000:00/0000:00:02.0/drm/card0/card0-DP-4", RUN+="/bin/su ryan -c /home/ryan/bin/undock"

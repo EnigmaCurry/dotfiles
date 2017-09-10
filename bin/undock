@@ -1,0 +1,9 @@
+#!/bin/bash
+
+export XAUTHORITY=$HOME/.Xauthority
+export DISPLAY=:0
+export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$UID/bus"
+
+$HOME/.screenlayout/undocked.sh
+notify-send "Undocking complete."
+

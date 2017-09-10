@@ -53,6 +53,14 @@ setup_systemd_units() {
     exe_fork "cat systemd/system_enabled.txt | grep -v '^#' | xargs sudo systemctl enable --now"
 }
 
+setup_systemd_units() {
+    # configure udev rules
+    echo "### Copy udev rules"
+    exe sudo rsync -a --chown=root:root udev/rules.d/ /etc/udev/rules.d/
+    echo "### Enable udev rules"
+    exe sudo udevadm control --reload
+}
+
 setup_systemd_networkd() {
     # Networking using systemd-networkd
     echo "### Setting up systemd-networkd"
@@ -73,7 +81,8 @@ setup_dotfiles() {
     echo "### Linking dotfiles"
     mkdir -p $HOME/.config
     exe_fork "ls _config | xargs -iXX ln -f -s `pwd`/_config/XX $HOME/.config"
-    exe_fork "ls | grep "^_" | grep -v "_config" | sed 's/_//' | xargs -iXX ln -f -s `pwd`/_XX $HOME/.XX"    
+    exe_fork "ls | grep "^_" | grep -v "_config" | sed 's/_//' | xargs -iXX ln -f -s `pwd`/_XX $HOME/.XX"
+    exe ln -f -s `pwd`/bin $HOME/
 }
 
 setup_emacs() {
