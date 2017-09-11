@@ -1,0 +1,30 @@
+# Maintainer: Pierre-Nick Durette <pndurette at gmail dot com>
+# Contributor: Tembleking <tembleking at gmail dot com>
+
+pkgname=python-gtts
+pkgver=1.2.2
+pkgrel=1
+pkgdesc="Module and command line utility to save spoken text to mp3 via the Google Text to Speech (TTS) API "
+arch=('any')
+url="https://github.com/pndurette/gTTS"
+license=('MIT')
+depends=('python' 'python-gtts-token')
+makedepends=('python-setuptools')
+source=("$pkgname::https://pypi.python.org/packages/83/26/fa8eca660d9e7e3cf23d2053437c5dc4d9197b15d6630815cc249ae3e1f1/gTTS-1.2.2.tar.gz#md5=8d009e338fe6b261657eb5c56b79bf2b")
+md5sums=('SKIP')
+
+
+prepare() {
+  tar -xvf "$pkgname"
+}
+build() {
+  cd "$srcdir/gTTS-$pkgver"
+  python setup.py build
+}
+
+package() {
+  cd "$srcdir/gTTS-$pkgver"
+  python setup.py install --root="$pkgdir" --optimize=1
+}
+
+# vim:set ts=2 sw=2 et:

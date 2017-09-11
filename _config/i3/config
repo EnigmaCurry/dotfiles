@@ -68,29 +68,43 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
+# Workspace names
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws0 "0"
+
+
+
 # switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws0
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws0
 
 
 # reload the configuration file
@@ -175,9 +189,12 @@ bar {
   }
 }
 
-# Start apps that have a tray icon:
+# Startup apps
 exec pasystray
 exec dropbox
+exec dunst
+exec chromium
+exec "emacs --daemon && emacsclient -c"
 
 client.focused #a89984 #a89984 #282828 #282828
 client.focused_inactive #1d2021 #1d2021 #928374 #282828
@@ -201,19 +218,35 @@ exec xfce4-volumed-pulse
 # mute sound
 # bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle 
 
-# Sreen brightness controls (untested)
-bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 5
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 
 # Screenshot tool
 bindsym $mod+Print exec "s3scrot -b"
 bindsym $mod+Shift+Print exec "s3scrot -bn"
+
+# Read the current X selection aloud with text to speech, press again
+# to stop it.
+# To the privacy aware, ~/bin/gtts-play sends text to a Google API
+# server, but it's the best voice quality. There's a number of free
+# alternatives, including espeak-ng and festival.
+bindsym $mod+Shift+p exec "killall mpg123; if [ $? == 1 ]; then ~/bin/gtts-play; fi"
+#bindsym $mod+Shift+p exec "killall espeak; if [ $? == 1 ]; then xsel | espeak; fi"
+#bindsym $mod+Shift+p exec "killall paplay; if [ $? == 1 ]; then xsel | festival --tts; fi"
+
 
 # MPD / Mopidy:
 bindsym XF86AudioPlay exec mpc toggle
 bindsym XF86AudioPause exec mpc toggle
 bindsym XF86AudioNext exec mpc next
 bindsym XF86AudioPrev exec mpc prev
+
+########################################
+### Application rules
+########################################
+assign [class="^Chromium$"] $ws9
+assign [class="^emacs$"] $ws1
 
 ########################################
 ### Floating rules
@@ -230,3 +263,12 @@ exec synclient TapButton1=1
 exec synclient TapButton2=3
 exec synclient VertScrollDelta=-116
 exec synclient HorizScrollDelta=-116
+
+########################################
+### Docking station rules
+########################################
+
+# Workspace 9 and 0 should favor the second display:
+workspace $ws9 output DP2-1
+workspace $ws0 output DP2-1
+

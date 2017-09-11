@@ -6,6 +6,6 @@ ssh/.ssh/known_hosts*
 
 aur/**/*
 !aur/*
-!aur/**/PKGINFO
+!aur/**/PKGBUILD
 
 .SRCINFO

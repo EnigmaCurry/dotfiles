@@ -1,0 +1,12 @@
+#!/usr/bin/python3
+
+from gtts import gTTS
+import subprocess
+
+xsel = subprocess.Popen(('xsel','-o'), stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+txt = str(xsel.stdout.read(), 'utf-8')
+tts = gTTS(text=txt, lang='en', slow=False)
+
+mp3 = subprocess.Popen(('mpg123','-'), stdin=subprocess.PIPE)
+
+tts.write_to_fp(mp3.stdin)

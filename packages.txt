@@ -21,6 +21,7 @@ python
 python2
 python-pip
 python2-pip
+python-requests
 jdk8-openjdk
 pandoc
 i3status
@@ -57,4 +58,6 @@ arandr
 eigen
 powertop
 dunst
-
+gimp
+festival
+festival-english
