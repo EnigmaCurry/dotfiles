@@ -1,2 +1,3 @@
 # List systemd unit names to have enabled
 powertop
+bluetooth

@@ -53,7 +53,7 @@ setup_systemd_units() {
     exe_fork "cat systemd/system_enabled.txt | grep -v '^#' | xargs sudo systemctl enable --now"
 }
 
-setup_systemd_units() {
+setup_udev_rules() {
     # configure udev rules
     echo "### Copy udev rules"
     exe sudo rsync -a --chown=root:root udev/rules.d/ /etc/udev/rules.d/
@@ -103,6 +103,7 @@ main() {
     echo "### Running setup and showing you the exact commands run:"
     setup_systemd_networkd
     setup_systemd_units
+    setup_udev_rules
     install_packages
     setup_dotfiles
     setup_emacs
