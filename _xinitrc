@@ -7,6 +7,9 @@ synclient TapButton2=3
 synclient VertScrollDelta=-116
 synclient HorizScrollDelta=-116
 
-xmodmap ~/.Xmodmap
+# Remove caps lock and make it a control key:
+setxkbmap -option ctrl:nocaps
+# Remove control key to train myself to use caps lock:
+xmodmap -e "keycode 37="
 
 i3
