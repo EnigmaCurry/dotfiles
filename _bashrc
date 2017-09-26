@@ -1,7 +1,9 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+export BROWSER=chromium
 export ANDROID_HOME=/opt/android-sdk
+export HISTCONTROL=ignoredups:ignorespace
 
 source ~/.config/bash/terminal.sh
 source ~/.config/bash/paths.sh
@@ -11,5 +13,4 @@ source ~/.config/bash/agents.sh
 if [ -f ~/.config/bash/aliases-private.sh ]; then
     source ~/.config/bash/aliases-private.sh
 fi
-
 

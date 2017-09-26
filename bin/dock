@@ -8,4 +8,6 @@ export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$UID/bus"
 # Otherwise, if xrandr were to run as a child of a udev RUN rule, it
 # will block, and xrandr won't see the new display connected yet.
 systemd-run --user --on-active=1 --timer-property=AccuracySec=100ms -E DISPLAY=$DISPLAY -E XAUTHORITY=$XAUTHORITY "$HOME/.screenlayout/docked.sh"
+
 notify-send "Docking complete."
+

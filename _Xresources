@@ -24,7 +24,8 @@ URxvt.font: xft:UbuntuMono:size=26
 
 *.foreground:   base05
 *.background:   base00
-*.cursorColor:  base05
+*.cursorColor:  base0
+Xcursor.size:   32
 
 *.color0:       base00
 *.color1:       base08

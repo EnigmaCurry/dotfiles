@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# Reset all keymaps back to default:
+setxkbmap -option
+
+# Remap Caps Lock so it behaves as Left Control.
+# Remap Control to nothing.
+# Maybe one day it gets to do somethin cool again, but for now it's
+# training wheels to always use Caps Lock.
+xmodmap \
+    -e "remove lock = Caps_Lock" \
+    -e "remove control = Control_L" \
+    -e "keycode 37 = " \
+    -e "keysym Caps_Lock = Control_L" \
+    -e "add control = Control_L" 
+
+# Num-lock being off by default is dumb:
+numlockx

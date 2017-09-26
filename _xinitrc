@@ -7,9 +7,8 @@ synclient TapButton2=3
 synclient VertScrollDelta=-116
 synclient HorizScrollDelta=-116
 
-# Remove caps lock and make it a control key:
-setxkbmap -option ctrl:nocaps
-# Remove control key to train myself to use caps lock:
-xmodmap -e "keycode 37="
+# Hotplugging keyboards breaks my key map, so I broke it out to it's
+# own command I can type anytime it breaks. Run it once on startup:
+~/bin/fixkbd
 
 i3
